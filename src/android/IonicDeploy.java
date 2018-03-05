@@ -168,6 +168,11 @@ public class IonicDeploy extends CordovaPlugin {
     this.v = webView;
     this.version_label = prefs.getString("ionicdeploy_version_label", IonicDeploy.NO_DEPLOY_LABEL);
     this.app_id = prefs.getString("app_id", getStringResourceByName("ionic_app_id"));
+    if( !this.app_id.equals(getStringResourceByName("ionic_app_id"))){
+        prefs.edit().putString("app_id", getStringResourceByName("ionic_app_id")).apply();
+        this.app_id = getStringResourceByName("ionic_app_id");
+        logMessage("INIT", "deploy Check app_id correct");
+    }
     this.server = getStringResourceByName("ionic_update_api");
     this.channel = prefs.getString("channel", getStringResourceByName("ionic_channel_name"));
     this.autoUpdate = getStringResourceByName("ionic_update_method");
